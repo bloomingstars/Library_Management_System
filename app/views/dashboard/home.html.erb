@@ -1,7 +1,7 @@
 <!--<h1>Dashboard#home</h1>-->
 <%#if current_user %>
-  <%#= link_to 'sign out', destroy_user_session_path, method: :delete %>
-  <%#= link_to 'edit profile', edit_user_registration_path %>
+<%#= link_to 'sign out', destroy_user_session_path, method: :delete %>
+<%#= link_to 'edit profile', edit_user_registration_path %>
 <html>
 <head></head>
 <style>
@@ -14,16 +14,23 @@
   }
 </style>
 <body>
+<%if current_user && current_user.user_type == "librarian" and current_user.l_approved == nil%>
+  <div id="main_content">
+   Welcome!!
+    Please wait for the admin's approval!!
+  </div>
+  <%else %>
 <div id="main_content">
   Hello and welcome to Dynamic Library Management System.
 </div>
+  <%end%>
 <!--<p style="padding-left: 20%">For navigating click on the links at the side or try signing in.</p>-->
 </body>
 </html>
 
 
 <%#else %>
-  <%#= link_to 'sign up', new_user_registration_path %>
+<%#= link_to 'sign up', new_user_registration_path %>
 <%#= link_to 'sign in', new_user_session_path %>
 
 <%#end %>

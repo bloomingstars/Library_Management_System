@@ -10,8 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_28_013357) do
+ActiveRecord::Schema.define(version: 2019_10_05_021704) do
 
+
+
+  create_table "libraries", force: :cascade do |t|
+    t.string "l_name"
+    t.string "l_location"
+    t.integer "l_max_days"
+    t.string "l_university"
+    t.float "l_fine"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
   create_table "books", force: :cascade do |t|
     t.string "b_title"
     t.string "b_author"
@@ -25,33 +36,9 @@ ActiveRecord::Schema.define(version: 2019_09_28_013357) do
     t.integer "Library_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "available"
     t.index ["Library_id"], name: "index_books_on_Library_id"
   end
-
-  create_table "libraries", force: :cascade do |t|
-    t.string "l_name"
-    t.string "l_location"
-    t.integer "l_max_days"
-    t.string "l_university"
-    t.float "l_fine"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "reservations", force: :cascade do |t|
-    t.integer "User_id"
-    t.integer "Books_id"
-    t.datetime "t_borrow"
-    t.datetime "d_return"
-    t.string "status"
-    t.boolean "bookmark"
-    t.float "fine_total"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["Books_id"], name: "index_reservations_on_Books_id"
-    t.index ["User_id"], name: "index_reservations_on_User_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -70,5 +57,20 @@ ActiveRecord::Schema.define(version: 2019_09_28_013357) do
     t.index ["library_id"], name: "index_users_on_library_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
+  create_table "reservations", force: :cascade do |t|
+    t.integer "User_id"
+    t.integer "Book_id"
+    t.datetime "t_borrow"
+    t.datetime "d_return"
+    t.string "status"
+    t.boolean "bookmark"
+    t.float "fine_total"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["Book_id"], name: "index_reservations_on_Book_id"
+    t.index ["User_id"], name: "index_reservations_on_User_id"
+  end
+
+
 
 end

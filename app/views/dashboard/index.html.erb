@@ -1,0 +1,56 @@
+
+<p id="notice"><%= notice %></p>
+<strong><h1 class="display-4">USERS</h1></strong>
+<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+<div class="container col col-lg">
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th scope="col">EMAIL</th>
+      <th scope="col">RESET PASSWORD SENT AT</th>
+      <th scope="col">REMEMBER CREATED AT</th>
+      <th scope="col">CREATED AT</th>
+      <th scope="col">UPDATED AT</th>
+      <th scope="col">USER TYPE</th>
+      <th scope="col">UNIVERSITY NAME</th>
+      <th scope="col">LIBRARY ID</th>
+      <th scope="col">LIBRARIAN APPROVED</th>
+      <th scope="col">EDUCATION LEVEL</th>
+      <th scope="col">MAX BORROWAL TIME</th>
+      <th colspan="3"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @user.each do |userst| %>
+      <tr>
+        <td scope="row"><%= userst.email %></td>
+        <td><%= userst.id %></td>
+        <td><%= userst.reset_password_sent_at %></td>
+        <td><%= userst.remember_created_at %></td>
+        <td><%= userst.created_at %></td>
+        <td><%= userst.updated_at %></td>
+        <td><%= userst.user_type %></td>
+        <td><%= userst.u_name %></td>
+        <%if(userst.library_id != nil && userst.library_id.to_i >0 ) %>
+        <td><%= Library.find(userst.library_id.to_i).l_name %></td>
+        <%else%>
+          <td></td>
+        <%end %>
+        <td><%= userst.l_approved %></td>
+        <td><%= userst.s_education %></td>
+        <td><%= userst.s_max %></td>
+<!--        <td><%#= link_to 'Edit', edit_user_registration_path(userst) %></td>-->
+<!--<td><%#=link_to 'destroy -try',id:userst.id,:onclick =>User.destroy(:id) && dashboard_url(1) %></td>-->
+<!--        <td><%#= link_to 'Destroy',:onclick => @user.delete(userst.id) %></td>-->
+<!--        <td><a href="/users/edit(userst.id)">Edit</a></td>-->
+<!--        <td><%#=link_to 'destroy -try',controller: "devise/registration",action: "destroy", :method =>'delete' %></td>-->-->
+<!--        <td><%#=link_to "delete",action:"devise/registration#destroy",method: :delete %></td>-->
+        <td><%= link_to 'show',"/users.#{userst.id}",method: :get %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
